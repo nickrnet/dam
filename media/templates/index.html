@@ -1,0 +1,20 @@
+{% extends "_base.html" %}
+
+{% block main %}
+  <section>
+    Welcome to the example app.
+    Use one of the links in the navigation to explore!
+  </section>
+  <h1>JPGs</h1>
+  <table>
+    {% for jpg in jpgs %}
+        <tr>
+        <td>{{ jpg.name }}</td>
+        </tr>
+    {% empty %}
+        <tr>
+        <td>No JPGs found.</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
