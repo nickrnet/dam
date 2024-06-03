@@ -1,21 +1,17 @@
-
-{% load django_htmx %}
 {% load static %}
 
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>django-htmx example app</title>
-  <link rel="stylesheet" href="{% static 'mvp.css' %}">
+  <title>Digital Asset Management</title>
 
   <!-- An example of how we can configure htmx -->
   <!-- https://htmx.org/docs/#config -->
   <meta name="htmx-config" content='{"historyCacheSize": 15}'>
 
-  <script src="{% static 'htmx.js' %}" defer></script>
-  <script src="{% static 'ext/debug.js' %}" defer></script>
-  <script src="{% static 'ext/event-header.js' %}" defer></script>
+  {% comment %} <script src="{% static 'htmx.min.js' %}"></script> {% endcomment %}
+  <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.js" integrity="sha384-qbtR4rS9RrUMECUWDWM2+YGgN3U4V4ZncZ0BvUcg9FGct0jqXz3PUdVpU1p0yrXS" crossorigin="anonymous"></script>
 </head>
 
 <!--
@@ -23,7 +19,7 @@
   * debug: https://htmx.org/extensions/debug/
   * event-header: https://htmx.org/extensions/event-header/
 -->
-<body hx-ext="debug, event-header">
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
   <header>
     <nav>
       <h1>
@@ -33,6 +29,9 @@
       </h1>
     </nav>
   </header>
+  <section>
+    Welcome to Digital Asset Management
+  </section>
   <main id="main">
     {% block main %}{% endblock %}
   </main>
@@ -42,6 +41,5 @@
       For more information see <a href="https://github.com/adamchainz/django-htmx">django-htmx</a> and <a href="https://htmx.org/">htmx</a>.
     </p>
   </footer>
-  {% django_htmx_script %}
 </body>
 </html>

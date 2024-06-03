@@ -1,0 +1,13 @@
+{% block upload_result %}
+<span id="upload_result">
+{% if success is not None %}
+  {% if not success %}
+    <b>Upload failed. Check the type of media you are trying to upload.</b>
+  {% else %}
+    Result: Successfully uploaded.
+  {% endif %}
+{% else %}
+  <i>Upload a file.</i>
+{% endif %}
+</span>
+{% endblock %}

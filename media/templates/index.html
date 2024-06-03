@@ -1,20 +1,32 @@
 {% extends "_base.html" %}
 
 {% block main %}
-  <section>
-    Welcome to the example app.
-    Use one of the links in the navigation to explore!
-  </section>
   <h1>JPGs</h1>
+  <form id='form' hx-encoding='multipart/form-data' hx-post='/media/upload' hx-target='#upload_result'>
+    {% csrf_token %}
+    <input type='file' name='file'>
+    <button>
+      Upload
+    </button>
+    <progress id='progress' value='0' max='100'></progress>
+    {% include "upload.html" %}
+    <script>
+        htmx.on('#form', 'htmx:xhr:progress', function(evt) {
+          htmx.find('#progress').setAttribute('value', evt.detail.loaded/evt.detail.total * 100)
+        });
+    </script>
+  </form>
+  <p></p>
   <table>
     {% for jpg in jpgs %}
-        <tr>
-        <td>{{ jpg.name }}</td>
-        </tr>
+    <tr>
+      <td>{{ jpg.name }}</td>
+      <td><i>size here</i></td>
+    </tr>
     {% empty %}
-        <tr>
-        <td>No JPGs found.</td>
-        </tr>
+    <tr>
+      <td>No JPGs found.</td>
+    </tr>
     {% endfor %}
-    </table>
-{% endblock %}
+  </table>
+  {% endblock %}
